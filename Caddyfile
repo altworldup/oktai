@@ -1,8 +1,8 @@
 crm.appliway.com:8443 {
     encode gzip
-    tls {
-        # Caddy gère automatiquement Let's Encrypt
-    }
+
+    # Gestion automatique du SSL (Let's Encrypt)
+    tls contact@appliway.com
 
     # Frontend
     reverse_proxy / taiga-front:80
