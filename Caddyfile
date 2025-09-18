@@ -2,7 +2,7 @@ crm.appliway.com:8443 {
     encode gzip
 
     # Gestion automatique du SSL (Let's Encrypt)
-    tls contact@appliway.com
+    tls teamproject@almightytechnology.pro
 
     # Frontend
     reverse_proxy / taiga-front:80
