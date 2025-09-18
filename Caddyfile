@@ -1,8 +1,6 @@
 crm.appliway.com:8443 {
     encode gzip
-
-    # Gestion automatique du SSL (Let's Encrypt)
-    tls teamproject@almightytechnology.pro
+    tls admin@appliway.com   # Mets ton adresse mail ici (Let’s Encrypt)
 
     # Frontend
     reverse_proxy / taiga-front:80
@@ -41,7 +39,7 @@ crm.appliway.com:8443 {
         header_up Upgrade {http.request.header.Upgrade}
         header_up Connection {http.request.header.Connection}
         transport http {
-            versions h1 h2c
+            versions 1.1 h2c
         }
     }
 }
