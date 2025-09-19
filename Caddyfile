@@ -1,35 +1,7 @@
-crm.appliway.com {
-    encode gzip
-    tls teamproject@almightytechnology.pro
-
-    reverse_proxy / taiga-front:80
-    reverse_proxy /api/* taiga-back:8000
-    reverse_proxy /admin/* taiga-back:8000
-
-    handle_path /static/* {
-        root * /taiga/static
-        file_server
-    }
-
-    handle_path /_protected/* {
-        root * /taiga/media
-        file_server
-        header Content-Disposition "attachment"
-    }
-
-    handle_path /media/exports/* {
-        root * /taiga/media/exports
-        file_server
-        header Content-Disposition "attachment"
-    }
-
-    reverse_proxy /media/* taiga-protected:8003
-
-    reverse_proxy /events taiga-events:8888 {
-        header_up Upgrade {http.request.header.Upgrade}
-        header_up Connection {http.request.header.Connection}
-        transport http {
-            versions 1.1 h2c
-        }
-    }
+https://crm.appliway.com/:443 {
+    header Strict-Transport-Security max-age=31536000;
+    reverse_proxy 127.0.0.1:8000
+#	tls admin@example.org
+	encode zstd gzip
+	
 }
