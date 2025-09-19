@@ -46,6 +46,9 @@ services:
       - ./data:/data
       - ./sites:/srv
     network_mode: "host"
+    depends_on:
+      - taiga-front
+      - taiga-back
 
   taiga-db:
     image: postgres:12.3
