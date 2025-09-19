@@ -1,40 +1,30 @@
-crm.appliway.com:8443 {
+crm.appliway.com {
     encode gzip
-    tls teamproject@almightytechnology.pro   # Mets ton adresse mail ici (Let’s Encrypt)
+    tls teamproject@almightytechnology.pro
 
-    # Frontend
     reverse_proxy / taiga-front:80
-
-    # API
     reverse_proxy /api/* taiga-back:8000
-
-    # Admin
     reverse_proxy /admin/* taiga-back:8000
 
-    # Static
     handle_path /static/* {
         root * /taiga/static
         file_server
     }
 
-    # Protected media
     handle_path /_protected/* {
         root * /taiga/media
         file_server
         header Content-Disposition "attachment"
     }
 
-    # Unprotected media
     handle_path /media/exports/* {
         root * /taiga/media/exports
         file_server
         header Content-Disposition "attachment"
     }
 
-    # Media (via protected service)
     reverse_proxy /media/* taiga-protected:8003
 
-    # Events (WebSockets)
     reverse_proxy /events taiga-events:8888 {
         header_up Upgrade {http.request.header.Upgrade}
         header_up Connection {http.request.header.Connection}
