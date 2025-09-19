@@ -35,7 +35,7 @@ x-volumes:
   # - ./config.py:/taiga-back/settings/config.py
 
 services:
-  caddy:
+ caddy:
   image: caddy:alpine
   restart: unless-stopped
   container_name: caddy
@@ -53,6 +53,7 @@ services:
   ports:
     - "9080:80"
     - "8443:443"
+
 
 
   taiga-db:
