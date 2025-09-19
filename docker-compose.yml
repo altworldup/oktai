@@ -36,19 +36,24 @@ x-volumes:
 
 services:
   caddy:
-    image: caddy:alpine
-    restart: unless-stopped
-    container_name: caddy
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      - ./certs:/certs
-      - ./config:/config
-      - ./data:/data
-      - ./sites:/srv
-    network_mode: "host"
-    depends_on:
-      - taiga-front
-      - taiga-back
+  image: caddy:alpine
+  restart: unless-stopped
+  container_name: caddy
+  volumes:
+    - ./Caddyfile:/etc/caddy/Caddyfile
+    - ./certs:/certs
+    - ./config:/config
+    - ./data:/data
+    - ./sites:/srv
+  networks:
+    - taiga
+  depends_on:
+    - taiga-front
+    - taiga-back
+  ports:
+    - "9080:80"
+    - "8443:443"
+
 
   taiga-db:
     image: postgres:12.3
